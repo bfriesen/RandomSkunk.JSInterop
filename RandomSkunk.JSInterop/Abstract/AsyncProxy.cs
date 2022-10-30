@@ -15,7 +15,7 @@ public abstract class AsyncProxy : DynamicObject
     /// <inheritdoc/>
     public override bool TryGetMember(GetMemberBinder binder, out object? result)
     {
-        var jsObjectTask = InvokeAsync<IJSInProcessObjectReference>(binder.Name);
+        var jsObjectTask = InvokeAsync<IJSObjectReference>(binder.Name);
         result = GetTaskOfProxyJSObject(jsObjectTask);
         return true;
     }
@@ -33,7 +33,7 @@ public abstract class AsyncProxy : DynamicObject
         }
         else
         {
-            var jsObjectTask = InvokeAsync<IJSInProcessObjectReference>(binder.Name, args);
+            var jsObjectTask = InvokeAsync<IJSObjectReference>(binder.Name, args);
             result = GetTaskOfProxyJSObject(jsObjectTask);
             return true;
         }
@@ -48,7 +48,7 @@ public abstract class AsyncProxy : DynamicObject
     /// <returns>An instance of <typeparamref name="TValue"/> obtained by JSON-deserializing the return value.</returns>
     protected abstract Task<TValue> InvokeAsync<TValue>(string identifier, params object?[]? args);
 
-    private static Task<AsyncProxyJSObjectReference> GetTaskOfProxyJSObject(Task<IJSInProcessObjectReference> jsObjectTask)
+    private static Task<AsyncProxyJSObjectReference> GetTaskOfProxyJSObject(Task<IJSObjectReference> jsObjectTask)
     {
         var tcs = new TaskCompletionSource<AsyncProxyJSObjectReference>();
 

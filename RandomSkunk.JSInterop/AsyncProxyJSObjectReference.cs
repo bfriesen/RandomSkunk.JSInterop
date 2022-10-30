@@ -5,22 +5,20 @@ namespace RandomSkunk.JSInterop;
 /// </summary>
 public sealed class AsyncProxyJSObjectReference : Abstract.AsyncProxy
 {
-    private readonly IJSObjectReference _jsObject;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="AsyncProxyJSObjectReference"/> class.
     /// </summary>
     /// <param name="jsObject">The backing JS object reference.</param>
     public AsyncProxyJSObjectReference(IJSObjectReference jsObject)
     {
-        _jsObject = jsObject ?? throw new ArgumentNullException(nameof(jsObject));
+        JSObject = jsObject ?? throw new ArgumentNullException(nameof(jsObject));
     }
 
     /// <summary>
     /// Gets the backing JS object reference.
     /// </summary>
     /// <returns>The backing <see cref="IJSObjectReference"/>.</returns>
-    public IJSObjectReference JSObject() => _jsObject;
+    public IJSObjectReference JSObject { get; }
 
     /// <summary>
     /// Gets a sync version of this proxy object.
@@ -28,7 +26,7 @@ public sealed class AsyncProxyJSObjectReference : Abstract.AsyncProxy
     /// <returns>An equivalent <see cref="SyncProxyJSObjectReference"/>.</returns>
     public SyncProxyJSObjectReference Sync()
     {
-        if (_jsObject is not IJSInProcessObjectReference inProcessObject)
+        if (JSObject is not IJSInProcessObjectReference inProcessObject)
             throw new InvalidOperationException();
 
         return new(inProcessObject);
@@ -37,9 +35,9 @@ public sealed class AsyncProxyJSObjectReference : Abstract.AsyncProxy
     /// <inheritdoc/>
     public override bool TryConvert(ConvertBinder binder, out object? result)
     {
-        if (binder.Type.IsAssignableFrom(typeof(IJSInProcessRuntime)))
+        if (binder.Type.IsAssignableFrom(typeof(IJSObjectReference)))
         {
-            result = _jsObject;
+            result = JSObject;
             return true;
         }
 
@@ -49,5 +47,5 @@ public sealed class AsyncProxyJSObjectReference : Abstract.AsyncProxy
 
     /// <inheritdoc/>
     protected override Task<TValue> InvokeAsync<TValue>(string identifier, params object?[]? args) =>
-        _jsObject.InvokeAsync<TValue>(identifier, args).AsTask();
+        JSObject.InvokeAsync<TValue>(identifier, args).AsTask();
 }

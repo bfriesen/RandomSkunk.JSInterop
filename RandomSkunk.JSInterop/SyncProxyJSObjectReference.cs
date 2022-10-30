@@ -5,35 +5,33 @@ namespace RandomSkunk.JSInterop;
 /// </summary>
 public sealed class SyncProxyJSObjectReference : Abstract.SyncProxy
 {
-    private readonly IJSInProcessObjectReference _jsObject;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="SyncProxyJSObjectReference"/> class.
     /// </summary>
     /// <param name="jsObject">The backing JS object reference.</param>
     public SyncProxyJSObjectReference(IJSInProcessObjectReference jsObject)
     {
-        _jsObject = jsObject ?? throw new ArgumentNullException(nameof(jsObject));
+        JSObject = jsObject ?? throw new ArgumentNullException(nameof(jsObject));
     }
 
     /// <summary>
     /// Gets the backing JS object reference.
     /// </summary>
     /// <returns>The backing <see cref="IJSInProcessObjectReference"/>.</returns>
-    public IJSInProcessObjectReference JSObject() => _jsObject;
+    public IJSInProcessObjectReference JSObject { get; }
 
     /// <summary>
     /// Gets an async version of this proxy object.
     /// </summary>
     /// <returns>An equivalent <see cref="AsyncProxyJSObjectReference"/>.</returns>
-    public AsyncProxyJSObjectReference Async() => new(_jsObject);
+    public AsyncProxyJSObjectReference Async() => new(JSObject);
 
     /// <inheritdoc/>
     public override bool TryConvert(ConvertBinder binder, out object? result)
     {
-        if (binder.Type.IsAssignableFrom(typeof(IJSInProcessRuntime)))
+        if (binder.Type.IsAssignableFrom(typeof(IJSInProcessObjectReference)))
         {
-            result = _jsObject;
+            result = JSObject;
             return true;
         }
 
@@ -43,5 +41,5 @@ public sealed class SyncProxyJSObjectReference : Abstract.SyncProxy
 
     /// <inheritdoc/>
     protected override TValue Invoke<TValue>(string identifier, params object?[]? args) =>
-        _jsObject.Invoke<TValue>(identifier, args);
+        JSObject.Invoke<TValue>(identifier, args);
 }

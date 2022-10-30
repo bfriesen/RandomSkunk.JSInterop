@@ -6,7 +6,7 @@ namespace RandomSkunk.JSInterop;
 public static class JSRuntimeExtensions
 {
     /// <summary>
-    /// Gets a dynamic proxy object for the <see cref="IJSRuntime"/> instance.
+    /// Gets an async dynamic proxy object for the <see cref="IJSRuntime"/> instance.
     /// </summary>
     /// <param name="jsRuntime">The <see cref="IJSRuntime"/> to get a dynamic project object for.</param>
     /// <returns>An instance of <see cref="AsyncProxyJSRuntime"/>.</returns>

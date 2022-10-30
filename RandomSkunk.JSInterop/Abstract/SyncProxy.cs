@@ -22,7 +22,7 @@ public abstract class SyncProxy : DynamicObject
     /// <inheritdoc/>
     public override bool TryInvokeMember(InvokeMemberBinder binder, object?[]? args, out object? result)
     {
-        if (binder.GetTypeArguments() is { Length: > 1 } typeArguments)
+        if (binder.GetTypeArguments() is { Length: > 0 } typeArguments)
         {
             if (typeArguments.Length > 1)
                 throw new InvalidOperationException("Type arguments must have exactly one item.");

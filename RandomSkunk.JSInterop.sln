@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomSkunk.JSInterop.Tests", "RandomSkunk.JSInterop.Tests\RandomSkunk.JSInterop.Tests.csproj", "{4A4D2FFF-01FF-47F2-940F-25EDE597C2FC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{415C1B45-E331-4BBB-8486-1DF6CCC6F93C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,9 +27,16 @@ Global
 		{C320EC3F-BE44-448F-B75E-02393ECCAD72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C320EC3F-BE44-448F-B75E-02393ECCAD72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C320EC3F-BE44-448F-B75E-02393ECCAD72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A4D2FFF-01FF-47F2-940F-25EDE597C2FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A4D2FFF-01FF-47F2-940F-25EDE597C2FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A4D2FFF-01FF-47F2-940F-25EDE597C2FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A4D2FFF-01FF-47F2-940F-25EDE597C2FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4A4D2FFF-01FF-47F2-940F-25EDE597C2FC} = {415C1B45-E331-4BBB-8486-1DF6CCC6F93C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7342293E-43C5-4304-BBB0-3EE527181D1D}
