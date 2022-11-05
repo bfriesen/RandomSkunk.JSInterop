@@ -8,10 +8,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E1694B0-1DDF-4B6F-997E-F09582446BDF}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		CHANGELOG.md = CHANGELOG.md
 		Directory.Build.targets = Directory.Build.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomSkunk.JSInterop.Tests", "RandomSkunk.JSInterop.Tests\RandomSkunk.JSInterop.Tests.csproj", "{4A4D2FFF-01FF-47F2-940F-25EDE597C2FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RandomSkunk.JSInterop.Tests", "RandomSkunk.JSInterop.Tests\RandomSkunk.JSInterop.Tests.csproj", "{4A4D2FFF-01FF-47F2-940F-25EDE597C2FC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{415C1B45-E331-4BBB-8486-1DF6CCC6F93C}"
 EndProject
