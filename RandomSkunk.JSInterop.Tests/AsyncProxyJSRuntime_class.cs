@@ -31,7 +31,7 @@ namespace RandomSkunk.JSInterop.Tests
             }
         }
 
-        public class Sync_method
+        public class AsSync_method
         {
             [Fact]
             public void When_jsRuntime_is_IJSInProcessRuntime_Returns_equivalent_sync_version()
@@ -42,7 +42,7 @@ namespace RandomSkunk.JSInterop.Tests
                 AsyncProxyJSRuntime? asyncProxyRuntime = new(jsRuntime);
 
                 // Act
-                SyncProxyJSRuntime? syncProxyRuntime = asyncProxyRuntime.Sync();
+                SyncProxyJSRuntime? syncProxyRuntime = asyncProxyRuntime.AsSync();
 
                 // Assert
                 syncProxyRuntime.JSRuntime.Should().BeSameAs(jsRuntime);
@@ -57,7 +57,7 @@ namespace RandomSkunk.JSInterop.Tests
                 AsyncProxyJSRuntime? asyncProxyRuntime = new(jsRuntime);
 
                 // Act / Assert
-                asyncProxyRuntime.Invoking(m => m.Sync()).Should()
+                asyncProxyRuntime.Invoking(m => m.AsSync()).Should()
                     .ThrowExactly<InvalidOperationException>();
             }
         }

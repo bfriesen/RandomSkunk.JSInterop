@@ -1,9 +1,11 @@
+using RandomSkunk.JSInterop.Abstract;
+
 namespace RandomSkunk.JSInterop;
 
 /// <summary>
 /// A dynamic proxy object that invokes JavaScript methods synchronously on an instance of a JavaScript object.
 /// </summary>
-public sealed class SyncProxyJSObjectReference : Abstract.SyncProxy
+public sealed class SyncProxyJSObjectReference : SyncProxy
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="SyncProxyJSObjectReference"/> class.
@@ -15,7 +17,7 @@ public sealed class SyncProxyJSObjectReference : Abstract.SyncProxy
     }
 
     /// <summary>
-    /// Gets the backing JS object reference.
+    /// Gets the backing JavaScript object reference.
     /// </summary>
     /// <returns>The backing <see cref="IJSInProcessObjectReference"/>.</returns>
     public IJSInProcessObjectReference JSObject { get; }
@@ -23,8 +25,9 @@ public sealed class SyncProxyJSObjectReference : Abstract.SyncProxy
     /// <summary>
     /// Gets an async version of this proxy object.
     /// </summary>
-    /// <returns>An equivalent <see cref="AsyncProxyJSObjectReference"/>.</returns>
-    public AsyncProxyJSObjectReference Async() => new(JSObject);
+    /// <returns>An <see cref="AsyncProxyJSObjectReference"/> with the same backing <see cref="IJSObjectReference"/> as this
+    ///     instance of <see cref="SyncProxyJSObjectReference"/>.</returns>
+    public AsyncProxyJSObjectReference AsAsync() => new(JSObject);
 
     /// <inheritdoc/>
     public override bool TryConvert(ConvertBinder binder, out object? result)

@@ -1,9 +1,11 @@
+using RandomSkunk.JSInterop.Abstract;
+
 namespace RandomSkunk.JSInterop;
 
 /// <summary>
 /// A dynamic proxy object that invokes JavaScript methods asynchronously on an instance of a JavaScript object.
 /// </summary>
-public sealed class AsyncProxyJSObjectReference : Abstract.AsyncProxy
+public sealed class AsyncProxyJSObjectReference : AsyncProxy
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="AsyncProxyJSObjectReference"/> class.
@@ -15,7 +17,7 @@ public sealed class AsyncProxyJSObjectReference : Abstract.AsyncProxy
     }
 
     /// <summary>
-    /// Gets the backing JS object reference.
+    /// Gets the backing JavaScript object reference.
     /// </summary>
     /// <returns>The backing <see cref="IJSObjectReference"/>.</returns>
     public IJSObjectReference JSObject { get; }
@@ -23,13 +25,19 @@ public sealed class AsyncProxyJSObjectReference : Abstract.AsyncProxy
     /// <summary>
     /// Gets a sync version of this proxy object.
     /// </summary>
-    /// <returns>An equivalent <see cref="SyncProxyJSObjectReference"/>.</returns>
-    public SyncProxyJSObjectReference Sync()
+    /// <returns>A <see cref="SyncProxyJSObjectReference"/> with the same backing <see cref="IJSObjectReference"/> as this
+    ///     instance of <see cref="AsyncProxyJSObjectReference"/>.</returns>
+    /// <exception cref="InvalidOperationException">The value of the <see cref="JSObject"/> property does not implement
+    ///     <see cref="IJSInProcessObjectReference"/>.</exception>
+    public SyncProxyJSObjectReference AsSync()
     {
         if (JSObject is not IJSInProcessObjectReference inProcessObject)
-            throw new InvalidOperationException();
+        {
+            throw new InvalidOperationException(
+                "Sync() cannot be called when the backing IJSReferenceObject does not also implement IJSInProcessObjectReference.");
+        }
 
-        return new(inProcessObject);
+        return new SyncProxyJSObjectReference(inProcessObject);
     }
 
     /// <inheritdoc/>

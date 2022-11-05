@@ -1,9 +1,11 @@
+using RandomSkunk.JSInterop.Abstract;
+
 namespace RandomSkunk.JSInterop;
 
 /// <summary>
 /// A dynamic proxy object that invokes JavaScript methods asynchronously on the JavaScript <c>window</c> object.
 /// </summary>
-public sealed class AsyncProxyJSRuntime : Abstract.AsyncProxy
+public sealed class AsyncProxyJSRuntime : AsyncProxy
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="AsyncProxyJSRuntime"/> class.
@@ -15,7 +17,7 @@ public sealed class AsyncProxyJSRuntime : Abstract.AsyncProxy
     }
 
     /// <summary>
-    /// Gets the backing JS runtime.
+    /// Gets the backing JavaScript runtime.
     /// </summary>
     /// <returns>The backing <see cref="IJSRuntime"/>.</returns>
     public IJSRuntime JSRuntime { get; }
@@ -23,13 +25,19 @@ public sealed class AsyncProxyJSRuntime : Abstract.AsyncProxy
     /// <summary>
     /// Gets a sync version of this proxy runtime.
     /// </summary>
-    /// <returns>An equivalent <see cref="SyncProxyJSRuntime"/>.</returns>
-    public SyncProxyJSRuntime Sync()
+    /// <returns>A <see cref="SyncProxyJSRuntime"/> with the same backing <see cref="IJSRuntime"/> as this instance of
+    ///     <see cref="AsyncProxyJSRuntime"/>.</returns>
+    /// <exception cref="InvalidOperationException">The value of the <see cref="JSRuntime"/> property does not implement
+    ///     <see cref="IJSInProcessRuntime"/>.</exception>
+    public SyncProxyJSRuntime AsSync()
     {
         if (JSRuntime is not IJSInProcessRuntime inProcessRuntime)
-            throw new InvalidOperationException();
+        {
+            throw new InvalidOperationException(
+                "Sync() cannot be called when the backing IJSRuntime does not also implement IJSInProcessRuntime.");
+        }
 
-        return new(inProcessRuntime);
+        return new SyncProxyJSRuntime(inProcessRuntime);
     }
 
     /// <inheritdoc/>

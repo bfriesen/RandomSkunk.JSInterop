@@ -31,7 +31,7 @@ namespace RandomSkunk.JSInterop.Tests
             }
         }
 
-        public class Async_method
+        public class AsAsync_method
         {
             [Fact]
             public void When_jsObject_is_IJSInProcessObjectReference_Returns_equivalent_async_version()
@@ -42,7 +42,7 @@ namespace RandomSkunk.JSInterop.Tests
                 SyncProxyJSObjectReference? syncProxyObject = new(jsObject);
 
                 // Act
-                AsyncProxyJSObjectReference? asyncProxyObject = syncProxyObject.Async();
+                AsyncProxyJSObjectReference? asyncProxyObject = syncProxyObject.AsAsync();
 
                 // Assert
                 asyncProxyObject.JSObject.Should().BeSameAs(jsObject);

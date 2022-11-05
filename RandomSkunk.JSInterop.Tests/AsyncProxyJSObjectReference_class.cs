@@ -31,7 +31,7 @@ namespace RandomSkunk.JSInterop.Tests
             }
         }
 
-        public class Sync_method
+        public class AsSync_method
         {
             [Fact]
             public void When_jsObject_is_IJSInProcessObjectReference_Returns_equivalent_sync_version()
@@ -42,7 +42,7 @@ namespace RandomSkunk.JSInterop.Tests
                 AsyncProxyJSObjectReference? asyncProxyObject = new(jsObject);
 
                 // Act
-                SyncProxyJSObjectReference? syncProxyObject = asyncProxyObject.Sync();
+                SyncProxyJSObjectReference? syncProxyObject = asyncProxyObject.AsSync();
 
                 // Assert
                 syncProxyObject.JSObject.Should().BeSameAs(jsObject);
@@ -57,7 +57,7 @@ namespace RandomSkunk.JSInterop.Tests
                 AsyncProxyJSObjectReference? asyncProxyObject = new(jsObject);
 
                 // Act / Assert
-                asyncProxyObject.Invoking(m => m.Sync()).Should()
+                asyncProxyObject.Invoking(m => m.AsSync()).Should()
                     .ThrowExactly<InvalidOperationException>();
             }
         }

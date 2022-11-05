@@ -31,7 +31,7 @@ namespace RandomSkunk.JSInterop.Tests
             }
         }
 
-        public class Async_method
+        public class AsAsync_method
         {
             [Fact]
             public void When_jsRuntime_is_IJSInProcessRuntime_Returns_equivalent_async_version()
@@ -42,7 +42,7 @@ namespace RandomSkunk.JSInterop.Tests
                 SyncProxyJSRuntime? syncProxyRuntime = new(jsRuntime);
 
                 // Act
-                AsyncProxyJSRuntime? asyncProxyRuntime = syncProxyRuntime.Async();
+                AsyncProxyJSRuntime? asyncProxyRuntime = syncProxyRuntime.AsAsync();
 
                 // Assert
                 asyncProxyRuntime.JSRuntime.Should().BeSameAs(jsRuntime);

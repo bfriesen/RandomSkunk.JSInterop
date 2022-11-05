@@ -1,9 +1,11 @@
+using RandomSkunk.JSInterop.Abstract;
+
 namespace RandomSkunk.JSInterop;
 
 /// <summary>
 /// A dynamic proxy object that invokes JavaScript methods synchronously on the JavaScript <c>window</c> object.
 /// </summary>
-public sealed class SyncProxyJSRuntime : Abstract.SyncProxy
+public sealed class SyncProxyJSRuntime : SyncProxy
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="SyncProxyJSRuntime"/> class.
@@ -15,7 +17,7 @@ public sealed class SyncProxyJSRuntime : Abstract.SyncProxy
     }
 
     /// <summary>
-    /// Gets the backing JS runtime.
+    /// Gets the backing JavaScript runtime.
     /// </summary>
     /// <returns>The backing <see cref="IJSInProcessRuntime"/>.</returns>
     public IJSInProcessRuntime JSRuntime { get; }
@@ -23,8 +25,9 @@ public sealed class SyncProxyJSRuntime : Abstract.SyncProxy
     /// <summary>
     /// Gets an async version of this proxy runtime.
     /// </summary>
-    /// <returns>An equivalent <see cref="AsyncProxyJSRuntime"/>.</returns>
-    public AsyncProxyJSRuntime Async() => new(JSRuntime);
+    /// <returns>An <see cref="AsyncProxyJSRuntime"/> with the same backing <see cref="IJSRuntime"/> as this instance of
+    ///     <see cref="SyncProxyJSRuntime"/>.</returns>
+    public AsyncProxyJSRuntime AsAsync() => new(JSRuntime);
 
     /// <inheritdoc/>
     public override bool TryConvert(ConvertBinder binder, out object? result)
